@@ -1,0 +1,86 @@
+<!doctype html>
+<html>
+<head>
+  <title>Login</title>
+  <style>
+    body {
+      font-family: sans-serif;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      background: #f4f4f4;
+    }
+    .container {
+      display: flex;
+      background: white;
+      padding: 2em;
+      border-radius: 10px;
+      box-shadow: 0 0 10px rgba(0,0,0,0.2);
+    }
+    .side-img {
+      width: 150px;
+      height: 150px;
+      object-fit: contain;
+      margin: auto;
+    }
+    .form-area {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding: 0 2em;
+    }
+    form input[type="text"],
+    form input[type="password"] {
+      padding: 0.5em;
+      margin: 0.5em 0;
+      width: 100%;
+    }
+    form input[type="submit"] {
+      padding: 0.5em 1em;
+      margin-top: 1em;
+    }
+    .status {
+      margin-bottom: 1em;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <img class="side-img" src="/images/jupter_logo.jpg" alt="Left">
+    <div class="form-area">
+      <h2>JupyterLab Login</h2>
+      <div class="status">
+        {% if locked %}
+          🛑 In use by <strong>{{ current_user }}</strong> (for {{ duration }})
+        {% else %}
+          ✅ Available
+        {% endif %}
+      </div>
+
+      {% if locked and current_user %}
+        <p>If you are <strong>{{ current_user }}</strong>, enter your password to release the lock:</p>
+        <form method="POST" action="/release">
+          <input type="hidden" name="username" value="{{ current_user }}">
+          <input type="password" name="password" placeholder="Password"><br>
+          <input type="submit" value="RELEASE LOCK">
+        </form>
+      {% else %}
+        <form method="POST">
+          <input name="username" type="text" placeholder="Username"><br>
+          <input name="password" type="password" placeholder="Password"><br>
+          <input type="submit" value="Login">
+        </form>
+      {% endif %}
+
+      <p style="color:red">{{ message }}</p>
+      {% if locked %}<p><a href="http://{{ ip }}:8888/lab" target="_blank">Open JupyterLab</a></p>{% endif %}
+      <p>Don't have an account? <a href="/register">Register here</a></p>
+    </div>
+    <img class="side-img" src="/images/jupyterlab_logo.png" alt="Right">
+  </div>
+<div style="position: fixed; bottom: 10px; right: 10px;">
+    <a href="/admin/logs" style="color: #777; text-decoration: none;">Admin</a>
+</div>
+</body>
+</html>

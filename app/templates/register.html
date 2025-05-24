@@ -1,0 +1,65 @@
+<!doctype html>
+<html>
+<head>
+  <title>Register</title>
+  <style>
+    body {
+      font-family: sans-serif;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      background: #f4f4f4;
+    }
+    .container {
+      display: flex;
+      background: white;
+      padding: 2em;
+      border-radius: 10px;
+      box-shadow: 0 0 10px rgba(0,0,0,0.2);
+    }
+    .side-img {
+      width: 150px;
+      height: 150px;
+      object-fit: contain;
+      margin: auto;
+    }
+    .form-area {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding: 0 2em;
+    }
+    form input[type="text"],
+    form input[type="password"] {
+      padding: 0.5em;
+      margin: 0.5em 0;
+      width: 100%;
+    }
+    form input[type="submit"] {
+      padding: 0.5em 1em;
+      margin-top: 1em;
+    }
+    .status {
+      margin-bottom: 1em;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <img class="side-img" src="/images/jupter_logo.jpg" alt="Left">
+    <div class="form-area">
+      <h2>Register</h2>
+      <form method="POST">
+        <input name="username" type="text" placeholder="Username"><br>
+        <input name="password" type="password" placeholder="Password"><br>
+        <input name="confirm" type="password" placeholder="Confirm Password"><br>
+        <input type="submit" value="Register">
+        <a href="{{ url_for('login') }}" class="back-link">Back to main page</a>
+      </form>
+      <p style="color:red">{{ message }}</p>
+    </div>
+    <img class="side-img" src="/images/jupyterlab_logo.png" alt="Right">
+  </div>
+</body>
+</html>
